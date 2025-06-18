@@ -15,12 +15,13 @@ class GroqClient:
 
 class Planner:
     def __init__(self, llm_client):
-        self.llm_client = G;
+        self.llm_client = llm_client;
         self.prompt_template = """"
         Your are an expert AI planner that is tasked with creating a set of steps to achieve that goal. 
         The steps should be specific, actionable, and in a logical order.
         The steps should be written in a JSON array format.
-        Goal: {goal}
+        **Only output a single JSON array of steps. No headings or extra text.**
+        Goal: {user_goal}
         Output format:
         [
             {{ "step": 1, "description": "…" }},
@@ -32,6 +33,7 @@ class Planner:
     def generate_plan(self,user_goal) -> str:
         prompt = self.prompt_template.format(user_goal = user_goal)
         raw_response = self.llm_client.generate(prompt)
+        print(f"Raw response from LLM:\n{raw_response}\n")
         try:
             plan_items  = json.loads(raw_response)
             steps = [item['description'] for item in plan_items]
