@@ -9,4 +9,5 @@ class Settings:
             api_key=self.groq_api_key,
             model=self.groq_model
         )
+        self.mem_db         = None  # Placeholder for vector DB URI
         self.enable_reflection = False
