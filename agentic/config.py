@@ -10,4 +10,5 @@ class Settings:
             model=self.groq_model
         )
         self.mem_db         = None  # Placeholder for vector DB URI
+        self.search_api_key = "963fd114fb94363c15fa1f2dfb215932b418bbc8e4d325c0bb8c96c8c751717b"
         self.enable_reflection = False
