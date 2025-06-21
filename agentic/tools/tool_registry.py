@@ -1,6 +1,8 @@
+from .functions import functions
 from .search_tool import SearchTool
 from .wikipedia_tool import WikipediaTool
 from typing import Any, Dict, Callable
+
 
 class ToolRegistry:
     def __init__(self, settings):
@@ -9,11 +11,12 @@ class ToolRegistry:
             "search": SearchTool(settings.search_api_key).run,
             "wikipedia": WikipediaTool().run
         }
+        self.function_defs = functions
 
     def get(self, name: str):
         if name not in self._tools:
             raise KeyError(f"No tool named {name}")
-        return self._tools[name]
+        return self.callables[name]
     
 
 
